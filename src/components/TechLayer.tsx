@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { techComponents } from '../data/layers';
 
 export default function TechLayer() {
@@ -54,12 +53,10 @@ export default function TechLayer() {
       {/* Tech components grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map((tech, index) => (
-          <motion.div
+          <div
             key={tech.id}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className={`rounded-xl p-5 border ${getCategoryColor(tech.category)} hover:scale-[1.02] transition-all`}
+            style={{ animationDelay: `${index * 50}ms` }}
+            className={`rounded-xl p-5 border ${getCategoryColor(tech.category)} hover:scale-[1.02] transition-all duration-300 animate-fadeIn`}
           >
             <div className="flex items-start justify-between mb-2">
               <div>
@@ -78,7 +75,7 @@ export default function TechLayer() {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
@@ -94,16 +91,14 @@ export default function TechLayer() {
             { layer: '连接层', items: 'IoT网关 · 边缘计算 · 5G专网 · OPC-UA', color: 'from-cyan-500/20 to-cyan-500/5', border: 'border-cyan-500/30' },
             { layer: '设备层', items: '工业机器人 · CNC · AGV · 传感器 · PLC', color: 'from-gray-500/20 to-gray-500/5', border: 'border-gray-500/30' },
           ].map((item, i) => (
-            <motion.div
+            <div
               key={item.layer}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className={`bg-gradient-to-r ${item.color} rounded-lg p-3 border ${item.border} flex items-center`}
+              style={{ animationDelay: `${i * 100}ms` }}
+              className={`bg-gradient-to-r ${item.color} rounded-lg p-3 border ${item.border} flex items-center animate-slideLeft`}
             >
               <span className="text-white font-medium text-sm w-16">{item.layer}</span>
               <span className="text-gray-300 text-xs">{item.items}</span>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

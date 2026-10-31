@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import ScenarioLayer from './components/ScenarioLayer';
 import ProcessLayer from './components/ProcessLayer';
 import DataLayer from './components/DataLayer';
@@ -63,21 +62,13 @@ export default function App() {
 
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeLayer}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {activeLayer === 'overview' && <Overview />}
-            {activeLayer === 'scenario' && <ScenarioLayer />}
-            {activeLayer === 'process' && <ProcessLayer />}
-            {activeLayer === 'data' && <DataLayer />}
-            {activeLayer === 'tech' && <TechLayer />}
-          </motion.div>
-        </AnimatePresence>
+        <div className="animate-fadeIn">
+          {activeLayer === 'overview' && <Overview key="overview" />}
+          {activeLayer === 'scenario' && <ScenarioLayer key="scenario" />}
+          {activeLayer === 'process' && <ProcessLayer key="process" />}
+          {activeLayer === 'data' && <DataLayer key="data" />}
+          {activeLayer === 'tech' && <TechLayer key="tech" />}
+        </div>
       </main>
 
       {/* Footer */}
@@ -95,23 +86,14 @@ function Overview() {
     <div className="space-y-8">
       {/* Hero section */}
       <div className="text-center py-8">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold mb-4"
-        >
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-slideUp">
           <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text text-transparent">
             数字化经营四层架构
           </span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-gray-400 text-lg max-w-2xl mx-auto"
-        >
+        </h2>
+        <p className="text-gray-400 text-lg max-w-2xl mx-auto animate-slideUp animation-delay-200">
           以终为始，从客户场景出发，构建端到端的数字化经营体系
-        </motion.p>
+        </p>
       </div>
 
       {/* Four layers visualization */}
@@ -121,13 +103,8 @@ function Overview() {
         
         <div className="space-y-6">
           {/* Layer 1: Scenario */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="relative md:w-[48%] md:ml-0"
-          >
-            <div className="bg-gradient-to-br from-cyan-900/30 to-cyan-800/10 rounded-xl p-6 border border-cyan-500/30 hover:border-cyan-400/50 transition-all">
+          <div className="relative md:w-[48%] md:ml-0 animate-slideLeft animation-delay-100">
+            <div className="bg-gradient-to-br from-cyan-900/30 to-cyan-800/10 rounded-xl p-6 border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">🎯</span>
                 <div>
@@ -147,16 +124,11 @@ function Overview() {
                 💡 以用户为中心，定义数字化的价值起点
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Layer 2: Process */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="relative md:w-[48%] md:ml-auto"
-          >
-            <div className="bg-gradient-to-br from-emerald-900/30 to-emerald-800/10 rounded-xl p-6 border border-emerald-500/30 hover:border-emerald-400/50 transition-all">
+          <div className="relative md:w-[48%] md:ml-auto animate-slideRight animation-delay-200">
+            <div className="bg-gradient-to-br from-emerald-900/30 to-emerald-800/10 rounded-xl p-6 border border-emerald-500/30 hover:border-emerald-400/50 transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">🔄</span>
                 <div>
@@ -177,16 +149,11 @@ function Overview() {
                 💡 端到端流程拉通，消除信息孤岛与流程断点
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Layer 3: Data */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="relative md:w-[48%] md:ml-0"
-          >
-            <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/10 rounded-xl p-6 border border-amber-500/30 hover:border-amber-400/50 transition-all">
+          <div className="relative md:w-[48%] md:ml-0 animate-slideLeft animation-delay-300">
+            <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/10 rounded-xl p-6 border border-amber-500/30 hover:border-amber-400/50 transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">📊</span>
                 <div>
@@ -212,16 +179,11 @@ function Overview() {
                 💡 数据驱动决策，从经验判断走向事实判断
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Layer 4: Tech */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="relative md:w-[48%] md:ml-auto"
-          >
-            <div className="bg-gradient-to-br from-violet-900/30 to-violet-800/10 rounded-xl p-6 border border-violet-500/30 hover:border-violet-400/50 transition-all">
+          <div className="relative md:w-[48%] md:ml-auto animate-slideRight animation-delay-400">
+            <div className="bg-gradient-to-br from-violet-900/30 to-violet-800/10 rounded-xl p-6 border border-violet-500/30 hover:border-violet-400/50 transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">⚙️</span>
                 <div>
@@ -241,42 +203,27 @@ function Overview() {
                 💡 技术底座支撑业务创新，平台化赋能敏捷迭代
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Key insights */}
       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="bg-gray-800/40 rounded-xl p-5 border border-gray-700"
-        >
+        <div className="bg-gray-800/40 rounded-xl p-5 border border-gray-700 animate-slideUp animation-delay-500">
           <div className="text-3xl mb-3">🔗</div>
           <h4 className="text-white font-semibold mb-2">纵向贯通</h4>
           <p className="text-gray-400 text-sm">从设备传感器到管理决策，数据自下而上流动，指令自上而下执行</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="bg-gray-800/40 rounded-xl p-5 border border-gray-700"
-        >
+        </div>
+        <div className="bg-gray-800/40 rounded-xl p-5 border border-gray-700 animate-slideUp animation-delay-600">
           <div className="text-3xl mb-3">🌐</div>
           <h4 className="text-white font-semibold mb-2">横向协同</h4>
           <p className="text-gray-400 text-sm">打破部门墙，实现研发-生产-供应链-服务的端到端协同</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="bg-gray-800/40 rounded-xl p-5 border border-gray-700"
-        >
+        </div>
+        <div className="bg-gray-800/40 rounded-xl p-5 border border-gray-700 animate-slideUp animation-delay-700">
           <div className="text-3xl mb-3">🚀</div>
           <h4 className="text-white font-semibold mb-2">持续进化</h4>
           <p className="text-gray-400 text-sm">数据反馈驱动流程优化，技术升级赋能场景创新，形成正向循环</p>
-        </motion.div>
+        </div>
       </div>
 
       {/* Relationship diagram */}

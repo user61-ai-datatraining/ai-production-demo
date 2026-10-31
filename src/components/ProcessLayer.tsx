@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { processSteps } from '../data/layers';
 
 export default function ProcessLayer() {
@@ -18,12 +17,10 @@ export default function ProcessLayer() {
         <div className="flex items-center gap-0 min-w-[900px] justify-center">
           {processSteps.map((step, index) => (
             <div key={step.id} className="flex items-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
+              <div
                 onClick={() => setActiveStep(activeStep === step.id ? null : step.id)}
-                className={`cursor-pointer relative group ${
+                style={{ animationDelay: `${index * 100}ms` }}
+                className={`cursor-pointer relative group animate-fadeIn ${
                   activeStep === step.id ? 'z-10' : ''
                 }`}
               >
@@ -43,61 +40,53 @@ export default function ProcessLayer() {
                     ▶
                   </div>
                 )}
-              </motion.div>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Detail panel */}
-      <AnimatePresence mode="wait">
-        {activeStep && (
-          <motion.div
-            key={activeStep}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="bg-gray-800/60 rounded-xl border border-emerald-500/30 p-6"
-          >
-            {(() => {
-              const step = processSteps.find(s => s.id === activeStep);
-              if (!step) return null;
-              return (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <h4 className="text-emerald-400 font-medium mb-2 text-sm">📌 负责部门</h4>
-                    <p className="text-white">{step.owner}</p>
-                    <h4 className="text-emerald-400 font-medium mb-2 mt-4 text-sm">⏱️ 周期</h4>
-                    <p className="text-white">{step.duration}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-blue-400 font-medium mb-2 text-sm">📥 输入</h4>
-                    <ul className="space-y-1">
-                      {step.inputs.map((input, i) => (
-                        <li key={i} className="text-gray-300 text-sm flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                          {input}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-amber-400 font-medium mb-2 text-sm">📤 输出</h4>
-                    <ul className="space-y-1">
-                      {step.outputs.map((output, i) => (
-                        <li key={i} className="text-gray-300 text-sm flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                          {output}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+      {activeStep && (
+        <div className="bg-gray-800/60 rounded-xl border border-emerald-500/30 p-6 animate-fadeIn">
+          {(() => {
+            const step = processSteps.find(s => s.id === activeStep);
+            if (!step) return null;
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <h4 className="text-emerald-400 font-medium mb-2 text-sm">📌 负责部门</h4>
+                  <p className="text-white">{step.owner}</p>
+                  <h4 className="text-emerald-400 font-medium mb-2 mt-4 text-sm">⏱️ 周期</h4>
+                  <p className="text-white">{step.duration}</p>
                 </div>
-              );
-            })()}
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <div>
+                  <h4 className="text-blue-400 font-medium mb-2 text-sm">📥 输入</h4>
+                  <ul className="space-y-1">
+                    {step.inputs.map((input, i) => (
+                      <li key={i} className="text-gray-300 text-sm flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                        {input}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-amber-400 font-medium mb-2 text-sm">📤 输出</h4>
+                  <ul className="space-y-1">
+                    {step.outputs.map((output, i) => (
+                      <li key={i} className="text-gray-300 text-sm flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        {output}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      )}
 
       {/* Value flow summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">

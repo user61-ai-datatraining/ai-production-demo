@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { dataMetrics } from '../data/layers';
 
 export default function DataLayer() {
@@ -52,12 +51,10 @@ export default function DataLayer() {
       {/* Metrics grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((metric, index) => (
-          <motion.div
+          <div
             key={metric.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.05 }}
-            className="bg-gray-800/60 rounded-xl p-5 border border-gray-700 hover:border-amber-500/30 transition-all"
+            style={{ animationDelay: `${index * 50}ms` }}
+            className="bg-gray-800/60 rounded-xl p-5 border border-gray-700 hover:border-amber-500/30 transition-all animate-fadeIn"
           >
             <div className="flex items-start justify-between mb-3">
               <div>
@@ -74,7 +71,7 @@ export default function DataLayer() {
               <span className="text-gray-500">来源: {metric.source}</span>
               <span className="text-amber-400/70">频率: {metric.frequency}</span>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
